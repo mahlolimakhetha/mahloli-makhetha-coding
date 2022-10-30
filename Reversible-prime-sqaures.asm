@@ -63,47 +63,11 @@
 	li $v0, 10
 	syscall
 	
-	goToLoop2:
+	reversed:
+		move	$v1, $t6
 		
-		j loop2
-	exit:
-		li $v0,10
-		syscall
-	
-	loopAgain:
-		addi $t0, $t0, 1
+		jr	$ra
 		
-		j loop1
-	
-	is_prime:
-	# Test value stored into $t0
-	
-	li $t3, 2
-
-	prime_for:
-		blt $a1, $t3, returnZero
-	
-		bge $t3, $a1, returnOne
-	
-		div $a1, $t3
-		mfhi $t2
-	
-		beqz $t2, returnZero
-		addi $t3, $t3, 1
-		j prime_for
-	jr	$ra
-
-	returnOne:
-		li $v1, 1
-		
-		jr $ra
-		
-		
-	returnZero:
-		li $v1, 0
-		
-		jr $ra
-	
 	reverse:	
 		# Test value
 		#li	$t2, 123
@@ -123,7 +87,50 @@
 			
 		jr	$ra
 		
-	reversed:
-		move	$v1, $t6
+	
+
+	
+	goToLoop2:
 		
-		jr	$ra
+		j loop2
+	exit:
+		li $v0,10
+		syscall
+	
+	loopAgain:
+		addi $t0, $t0, 1
+		
+		j loop1
+		
+	returnZero:
+		li $v1, 0
+		
+		jr $ra
+	
+	
+	returnOne:
+		li $v1, 1
+		
+		jr $ra
+		
+	
+	
+	is_prime:
+	# Test value stored into $t0
+	
+	li $t3, 2
+
+	prime_for:
+		blt $a1, $t3, returnZero
+	
+		bge $t3, $a1, returnOne
+	
+		div $a1, $t3
+		mfhi $t2
+	
+		beqz $t2, returnZero
+		addi $t3, $t3, 1
+		j prime_for
+	jr	$ra
+
+	
